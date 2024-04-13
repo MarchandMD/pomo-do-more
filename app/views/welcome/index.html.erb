@@ -1,0 +1,8 @@
+<div class="border border-1 text-center vh-100 d-flex flex-column align-items-center justify-content-center" data-controller="hello">
+  <p><%= @track["title"] %></p>
+  <div data-hello-target="number">1</div>
+  <%= button_tag "start", data: { "hello-target": "button", action: "click->hello#toggleButtonWord" } %>
+  <div>
+    <audio id="audioPlayer" data-hello-target="audio" src=<%= @track["enclosure"]["url"] %> type="audio/mpeg"></audio>
+  </div>
+</div>
