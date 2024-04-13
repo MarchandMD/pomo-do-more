@@ -16,11 +16,11 @@
 
 Pomo-do-more is an iteration on the Pomodoro timer, with music
 
-Start the countdown, music begins.
+Start the countdown, music begins
 
-25 minutes later, the countdown and music stop.
+25 minutes later, the countdown and music stop
 
-Reset the timer, start again to start the countdown and resume the music from whence it paused.
+Repeat
 
 [Getting started](#getting-started) •
 [Installation](#installation) •
