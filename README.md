@@ -1,24 +1,67 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<div align="center">
 
-Things you may want to cover:
+<sup>Special thanks to:</sup>
 
-* Ruby version
+<a href="https://musicforprogramming.net/latest/">
+  <b>
+    MusicForProgramming.net
+  </b>
+</a>
 
-* System dependencies
+<hr />
 
-* Configuration
+# Pomo-do-more
 
-* Database creation
 
-* Database initialization
+Pomo-do-more is an iteration on the Pomodoro timer, with music
 
-* How to run the test suite
+Start the countdown, music begins.
 
-* Services (job queues, cache servers, search engines, etc.)
+25 minutes later, the countdown and music stop.
 
-* Deployment instructions
+Reset the timer, start again to start the countdown and resume the music from whence it paused.
 
-* ...
+[Getting started](#getting-started) •
+[Installation](#installation) •
+[Configuration](#configuration) •
+[In Production](#in-production)
+
+</div>
+
+## Getting started
+
+```bash
+git clone pomo-do-more
+cd pomo-do-more
+```
+
+Read more about the pomodoro technique [here](https://www.google.com/search?client=firefox-b-1-d&q=pomodoro+technique)
+
+## Installation
+
+Pomo-do-more can be installed on your local machine in 4 easy steps:
+
+1. **run the bundle command**
+
+```bash
+# assuming you're in the project repo root directory
+
+> bundle
+```
+
+2. **start the server**
+
+```bash
+> rails s
+
+# i mean, you could do bin/dev, but let's keep it simple
+```
+
+## Configuration
+
+This is meant to be simple; no configuration
+
+## In Production
+
+...or just use it online: [pomo-do-more.fly.dev](https://pomo-do-more.fly.dev/)

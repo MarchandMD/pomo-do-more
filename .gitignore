@@ -38,3 +38,6 @@
 !/app/assets/builds/.keep
 
 /node_modules
+
+pomo-do-more_postgres_credentials.md
+
