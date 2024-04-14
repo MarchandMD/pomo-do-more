@@ -1,16 +1,14 @@
-// the @hotwired/stimulus module defines this "Controller" base class and then exports it.
-// at the top of each stimulus controller, that "Controller" base class is imported to start.
 import { Controller } from "@hotwired/stimulus"
 
-// to begin definins what this specific controller is capable of, the basic language to type is this opening line.
 export default class extends Controller {
-  // targets are the HTML elements that will be within the parent HTML element that defines the controller.
   static targets = ["number", "button", "playButton", "pauseButton", "audio"];
+  static values = { tracks: String };
 
-  // connect() is a built-in method that evaluates whenever this controller connects to the DOM; since controllers are connected to HTML pages, the stimulus controller will connect when the page is displayed.
   connect() {
     this.numberTarget.innerText = 1500;
     this.timer = null;
+
+    this.audioTarget.addEventListener("ended", this.playNextTrack.bind(this));
   }
 
   toggleButtonWord() {
@@ -55,5 +53,14 @@ export default class extends Controller {
 
   pauseMusic() {
     this.audioTarget.pause();
+  }
+
+  playNextTrack() {
+    const tracks = this.tracksValue.split(",");
+    let randomIndex = Math.floor(Math.random() * tracks.length);
+
+    this.audioTarget.src = tracks[randomIndex];
+    this.audioTarget.play();
+    document.title = `new song: ${randomIndex}`;
   }
 }

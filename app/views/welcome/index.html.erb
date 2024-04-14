@@ -1,4 +1,6 @@
-<div class="border border-1 text-center vh-100 d-flex flex-column align-items-center justify-content-center" data-controller="hello">
+<%= content_for :title, @track["title"] %>
+
+<div class="border border-1 text-center vh-100 d-flex flex-column align-items-center justify-content-center" data-controller="hello" data-hello-tracks-value=<%= @tracks.join(",") %>>
   <p><%= @track["title"] %></p>
   <div data-hello-target="number">1</div>
   <%= button_tag "start", data: { "hello-target": "button", action: "click->hello#toggleButtonWord" } %>
