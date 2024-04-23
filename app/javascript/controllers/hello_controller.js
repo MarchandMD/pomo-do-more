@@ -8,6 +8,7 @@ export default class extends Controller {
   connect() {
     this.numberTarget.innerText = 1500;
     this.timer = null;
+    this.bonusTimer = null;
 
     this.audioTarget.addEventListener("ended", this.playNextTrack.bind(this));
   }
@@ -22,6 +23,8 @@ export default class extends Controller {
       setInterval(() => {
       }, interval);
     } else if (this.buttonTarget.innerText == "reset") {
+      this.stopBonusTimer();
+      this.bonusTimeTimerTarget.innerText = 0;
       this.buttonTarget.innerText = "start";
       this.numberTarget.innerText = 1500;
       this.pauseMusic();
@@ -51,9 +54,14 @@ export default class extends Controller {
     clearInterval(this.timer);
   }
 
+  stopBonusTimer() {
+    clearInterval(this.bonusTimer);
+    debugger
+  }
+
   startBonusTimeTimer() {
     const interval = 1000;
-    this.timer = setInterval(() => {
+    this.bonusTimer = setInterval(() => {
       this.bonusTimeTimerTarget.innerText++;
     }, interval)
   }
