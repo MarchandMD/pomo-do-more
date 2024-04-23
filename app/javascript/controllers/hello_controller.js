@@ -6,7 +6,7 @@ export default class extends Controller {
   static outlets = ["stats"];
 
   connect() {
-    this.numberTarget.innerText = 5;
+    this.numberTarget.innerText = 1500;
     this.timer = null;
     this.bonusTimer = null;
 
@@ -40,7 +40,7 @@ export default class extends Controller {
   resetButtonClicked() {
     this.stopBonusTimer();
     this.buttonTarget.innerText = "start";
-    this.numberTarget.innerText = 5;
+    this.numberTarget.innerText = 1500;
     this.pauseMusic();
     this.bonusTimeTarget.classList.add("d-none");
     this.addBonusTimeToTotal();
