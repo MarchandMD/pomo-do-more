@@ -6,7 +6,7 @@ export default class extends Controller {
   static outlets = ["stats"];
 
   connect() {
-    this.numberTarget.innerText = 1500;
+    this.numberTarget.innerText = 5;
     this.timer = null;
     this.bonusTimer = null;
 
@@ -23,12 +23,7 @@ export default class extends Controller {
       setInterval(() => {
       }, interval);
     } else if (this.buttonTarget.innerText == "reset") {
-      this.stopBonusTimer();
-      this.bonusTimeTimerTarget.innerText = 0;
-      this.buttonTarget.innerText = "start";
-      this.numberTarget.innerText = 1500;
-      this.pauseMusic();
-      this.bonusTimeTarget.classList.add("d-none");
+      this.resetButtonClicked();
     } else {
       this.buttonTarget.innerText = "start"
       this.stopTimer();
@@ -36,10 +31,27 @@ export default class extends Controller {
     }
   }
 
+  addBonusTimeToTotal() {
+    const totalTime = this.statsOutlet.totalTarget.innerText;
+    const bonusTime = this.bonusTimeTarget.innerText;
+    this.statsOutlet.totalTarget.innerText = parseInt(totalTime) + parseInt(bonusTime);
+  }
+
+  resetButtonClicked() {
+    this.stopBonusTimer();
+    this.buttonTarget.innerText = "start";
+    this.numberTarget.innerText = 5;
+    this.pauseMusic();
+    this.bonusTimeTarget.classList.add("d-none");
+    this.addBonusTimeToTotal();
+    this.bonusTimeTimerTarget.innerText = 0;
+  }
+
   startTimer() {
     const interval = 1000;
     this.timer = setInterval(() => {
       this.numberTarget.innerText--;
+      this.statsOutlet.totalTarget.innerText++;
       if (this.numberTarget.innerText == 0) {
         this.stopTimer();
         this.pauseMusic();
@@ -56,7 +68,6 @@ export default class extends Controller {
 
   stopBonusTimer() {
     clearInterval(this.bonusTimer);
-    debugger
   }
 
   startBonusTimeTimer() {
