@@ -1,24 +1,27 @@
 <%= content_for :title, @track["title"] %>
-<div data-controller="hello stats" data-hello-stats-outlet="#total-time-id" data-hello-tracks-value=<%= @tracks.join(",") %> class="text-center">
-  <div class="p-5">
+<div data-controller="hello stats" data-hello-stats-outlet="#total-time-id" data-hello-tracks-value=<%= @tracks.join(",") %> class="row text-center">
+  <div class="col-6 p-5">
     <p data-hello-target="trackTitle"><%= @track["title"] %></p>
     <div data-hello-target="number">1</div>
     <%= button_tag "start", class: "btn btn-secondary", data: { "hello-target": "button", action: "click->hello#toggleButtonWord" } %>
     <div>
       <audio id="audioPlayer" data-hello-target="audio" src=<%= @track["enclosure"]["url"] %> type="audio/mpeg"></audio>
     </div>
-  </div>
-  <div data-hello-target="bonusTime" class="p-3 d-none">
-    <div data-hello-target="bonusTimeTimer">
-      0
+    <div data-hello-target="bonusTime" class="p-3 d-none">
+      <div data-hello-target="bonusTimeTimer">
+        0
+      </div>
+      <%= button_tag "bonus time", class: "btn btn-primary" %>
     </div>
-    <%= button_tag "bonus time", class: "btn btn-primary" %>
   </div>
-</div>
-<div class="row p-3">
-  <div class="col d-flex justify-content-around">
-    <div>total time: <div id="total-time-id" class="total-time-class" data-controller="stats" data-stats-target="total">0</div></div>
-    <div>sessions:</div>
-    <div>pomodoros:</div>
+  <div class="col-6 d-flex justify-content-around">
+    <div class="d-flex flex-column justify-content-center">
+      <div class="d-flex">
+        <div class="px-3">total time:</div>
+        <div id="total-time-id" class="total-time-class" data-controller="stats" data-stats-target="total">0</div>
+      </div>
+      <div>sessions:</div>
+      <div>pomodoros:</div>
+    </div>
   </div>
 </div>
