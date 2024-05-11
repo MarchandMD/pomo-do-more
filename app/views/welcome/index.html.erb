@@ -7,12 +7,6 @@
     <div>
       <audio id="audioPlayer" data-hello-target="audio" src=<%= @track["enclosure"]["url"] %> type="audio/mpeg"></audio>
     </div>
-    <div data-hello-target="bonusTime" class="p-3 d-none">
-      <div data-hello-target="bonusTimeTimer">
-        0
-      </div>
-      <%= button_tag "bonus time", class: "btn btn-primary" %>
-    </div>
   </div>
   <div class="col-6 d-flex justify-content-around">
     <div class="d-flex flex-column justify-content-center">
@@ -20,8 +14,11 @@
         <div class="px-3">total time:</div>
         <div id="total-time-id" class="total-time-class" data-controller="stats" data-stats-target="total">0</div>
       </div>
-      <div>sessions:</div>
+      <div>sessions:<span data-hello-target="sessions">0</span></div>
       <div>pomodoros:</div>
     </div>
   </div>
+  <%= form_with do |form| %>
+    <%= form.select :interval, [10, 20, 30], {}, data: { "hello-target": "interval", action: "change->hello#updateTarget" } %>
+  <% end %>
 </div>

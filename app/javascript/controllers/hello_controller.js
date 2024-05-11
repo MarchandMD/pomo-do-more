@@ -1,14 +1,13 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["number", "button", "playButton", "pauseButton", "audio", "trackTitle", "bonusTime", "bonusTimeTimer"];
+  static targets = ["number", "button", "playButton", "pauseButton", "audio", "trackTitle", "sessions", "interval"];
   static values = { tracks: String };
   static outlets = ["stats"];
 
   connect() {
-    this.numberTarget.innerText = 1500;
+    this.numberTarget.innerText = this.intervalTarget.value * 60;
     this.timer = null;
-    this.bonusTimer = null;
 
     this.audioTarget.addEventListener("ended", this.playNextTrack.bind(this));
   }
@@ -31,20 +30,10 @@ export default class extends Controller {
     }
   }
 
-  addBonusTimeToTotal() {
-    const totalTime = this.statsOutlet.totalTarget.innerText;
-    const bonusTime = this.bonusTimeTarget.innerText;
-    this.statsOutlet.totalTarget.innerText = parseInt(totalTime) + parseInt(bonusTime);
-  }
-
   resetButtonClicked() {
-    this.stopBonusTimer();
     this.buttonTarget.innerText = "start";
-    this.numberTarget.innerText = 1500;
+    this.numberTarget.innerText = 10;
     this.pauseMusic();
-    this.bonusTimeTarget.classList.add("d-none");
-    this.addBonusTimeToTotal();
-    this.bonusTimeTimerTarget.innerText = 0;
   }
 
   startTimer() {
@@ -56,25 +45,17 @@ export default class extends Controller {
         this.stopTimer();
         this.pauseMusic();
         this.buttonTarget.innerText = "reset";
-        this.bonusTimeTarget.classList.remove("d-none");
-        this.startBonusTimeTimer();
+        this.sessionsTarget.innerText++;
       }
     }, interval);
   }
 
   stopTimer() {
     clearInterval(this.timer);
-  }
+    let sessions = this.sessionsTarget.innerText;
+    let num = parseInt(sessions, 10);
+    this.sessionsTarget.innerText = num++;
 
-  stopBonusTimer() {
-    clearInterval(this.bonusTimer);
-  }
-
-  startBonusTimeTimer() {
-    const interval = 1000;
-    this.bonusTimer = setInterval(() => {
-      this.bonusTimeTimerTarget.innerText++;
-    }, interval)
   }
 
   playMusic() {
@@ -101,14 +82,7 @@ export default class extends Controller {
     this.trackTitleTarget.innerText = title;
   }
 
-  sessionEnded() {
-    // accumulate time
-    //
-    // start bonus timer
-    // bonus timer appears
-    // bonus timer begins counting up
-    // bonus timer has a start and stop button
-    // when the bonus stop button is clicked, accumulate and display the total
+  updateTarget() {
+    this.numberTarget.innerText = this.intervalTarget.value * 60;
   }
-
 }
