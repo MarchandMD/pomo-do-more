@@ -2,6 +2,7 @@
   "name": "app",
   "private": "true",
   "dependencies": {
+    "@hotwired/turbo-rails": "^8.0.13",
     "@popperjs/core": "^2.11.8",
     "autoprefixer": "^10.4.19",
     "bootstrap": "^5.3.3",
@@ -9,7 +10,8 @@
     "nodemon": "^3.1.0",
     "postcss": "^8.4.38",
     "postcss-cli": "^11.0.0",
-    "sass": "^1.75.0"
+    "sass": "^1.75.0",
+    "stimulus": "^3.2.2"
   },
   "scripts": {
     "build:css:compile": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
@@ -20,5 +22,9 @@
   "browserslist": [
     "defaults"
   ],
-  "packageManager": "yarn@1.19.1"
+  "packageManager": "yarn@1.19.1",
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "vite-plugin-ruby": "^5.1.0"
+  }
 }

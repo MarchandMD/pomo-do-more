@@ -1,24 +1,35 @@
-<%= content_for :title, @track["title"] %>
-<div data-controller="hello stats" data-hello-stats-outlet="#total-time-id" data-hello-tracks-value=<%= @tracks.join(",") %> class="row text-center">
-  <div class="col-6 p-5">
-    <p data-hello-target="trackTitle"><%= @track["title"] %></p>
-    <div data-hello-target="number">1</div>
-    <%= button_tag "start", class: "btn btn-secondary", data: { "hello-target": "button", action: "click->hello#toggleButtonWord" } %>
-    <div>
-      <audio id="audioPlayer" data-hello-target="audio" src=<%= @track["enclosure"]["url"] %> type="audio/mpeg"></audio>
-    </div>
-  </div>
-  <div class="col-6 d-flex justify-content-around">
-    <div class="d-flex flex-column justify-content-center">
-      <div class="d-flex">
-        <div class="px-3">total time:</div>
-        <div id="total-time-id" class="total-time-class" data-controller="stats" data-stats-target="total">0</div>
+<div class="row">
+  <div class="col-6">
+    <% @track_titles.each do |title| %>
+      <div class="">
+        <%= title %>
       </div>
-      <div>sessions:<span data-hello-target="sessions">0</span></div>
-      <div>pomodoros:</div>
+    <% end %>
+  </div>
+  <div class="col-6">
+    <%= content_for :title, @track["title"] %>
+    <div data-controller="hello stats" data-hello-stats-outlet="#total-time-id" data-hello-tracks-value=<%= @tracks.join(",") %> class="row text-center">
+      <div class="col-6 p-5">
+        <p data-hello-target="trackTitle"><%= @track["title"] %></p>
+        <div data-hello-target="number">1</div>
+        <%= button_tag "start", class: "btn btn-secondary", data: { "hello-target": "button", action: "click->hello#toggleButtonWord" } %>
+        <div>
+          <audio id="audioPlayer" data-hello-target="audio" src=<%= @track["enclosure"]["url"] %> type="audio/mpeg"></audio>
+        </div>
+      </div>
+      <div class="col-6 d-flex justify-content-around">
+        <div class="d-flex flex-column justify-content-center">
+          <div class="d-flex">
+            <div class="px-3">total time:</div>
+            <div id="total-time-id" class="total-time-class" data-controller="stats" data-stats-target="total">0</div>
+          </div>
+          <div>sessions:<span data-hello-target="sessions">0</span></div>
+          <div>pomodoros:</div>
+        </div>
+      </div>
+      <%= form_with do |form| %>
+        <%= form.select :interval, [10, 20, 30], {}, data: { "hello-target": "interval", action: "change->hello#updateTarget" } %>
+      <% end %>
     </div>
   </div>
-  <%= form_with do |form| %>
-    <%= form.select :interval, [10, 20, 30], {}, data: { "hello-target": "interval", action: "change->hello#updateTarget" } %>
-  <% end %>
 </div>
