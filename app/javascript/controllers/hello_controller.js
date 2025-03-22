@@ -15,8 +15,10 @@ export default class extends Controller {
   static outlets = ["stats"]
 
   connect() {
-    debugger
-    this.numberTarget.innerText = this.intervalTarget.value * 60
+    let totalSeconds = this.intervalTarget.value * 60
+    const minutes = Math.floor(totalSeconds / 60)
+    const remainingSeconds = totalSeconds % 60
+    this.numberTarget.innerText = `${minutes}:${remainingSeconds}`
     this.timer = null
 
     this.audioTarget.addEventListener("ended", this.playNextTrack.bind(this))
@@ -27,9 +29,11 @@ export default class extends Controller {
 
     if (this.buttonTarget.innerText == "start") {
       this.buttonTarget.innerText = "stop"
-      // this.startTimer()
+      this.startTimer()
       this.playMusic()
-      setInterval(() => {}, interval)
+      setInterval(() => {
+        console.log("another second gone")
+      }, interval)
     } else if (this.buttonTarget.innerText == "reset") {
       this.resetButtonClicked()
     } else {
@@ -46,28 +50,29 @@ export default class extends Controller {
   }
 
   startTimer() {
-    const interval = 1000;
-    let totalSeconds = 0;  // Track total seconds
+    const interval = 1000
+    let totalSeconds = 0 // Track total seconds
 
     this.timer = setInterval(() => {
-      totalSeconds++;  // Increment total seconds
+      totalSeconds++ // Increment total seconds
 
       // Calculate minutes and remaining seconds
-      const minutes = Math.floor(totalSeconds / 60).toString().padStart(2, "0");
-      const remainingSeconds = (totalSeconds % 60).toString().padStart(2, "0");
+      const minutes = Math.floor(totalSeconds / 60)
+        .toString()
+        .padStart(2, "0")
+      const remainingSeconds = (totalSeconds % 60).toString().padStart(2, "0")
 
       // Update the total time display in mm:ss format
-      this.numberTarget.innerText--;  // Update the countdown
+      this.numberTarget.innerText-- // Update the countdown
 
       if (this.numberTarget.innerText == 0) {
-        this.stopTimer();
-        this.pauseMusic();
-        this.buttonTarget.innerText = "reset";
-        this.sessionsTarget.innerText++;
+        this.stopTimer()
+        this.pauseMusic()
+        this.buttonTarget.innerText = "reset"
+        this.sessionsTarget.innerText++
       }
-    }, interval);
+    }, interval)
   }
-
 
   stopTimer() {
     clearInterval(this.timer)
